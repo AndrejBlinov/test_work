@@ -1,0 +1,20 @@
+Array
+(
+    [MODIFIED_BY] => 1
+    [IBLOCK_SECTION_ID] => 
+    [IBLOCK_ID] => 4
+    [PROPERTY_VALUES] => Array
+        (
+            [POST] => Array
+                (
+                    [VALUE] => 10
+                )
+
+        )
+
+    [NAME] => Студент
+    [ACTIVE] => Y
+    [PREVIEW_TEXT] => 
+    [DETAIL_TEXT] => 
+    [CODE] => -21-03-06-13
+)
