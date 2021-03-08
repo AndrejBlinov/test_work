@@ -16,7 +16,7 @@ if ($request->isPost()){
 		$formData = $request->getPost("data"); 
 		$name = "";
 		$PROP = array();
-
+		$PRODUCT_ID = 0;
 		foreach($formData as $dataItem)
 		{
 			switch($dataItem['name']){
@@ -26,6 +26,9 @@ if ($request->isPost()){
 
 				case 'workPost':
 					$PROP['POST']["VALUE"] = $dataItem['value'];
+				break;
+				case 'id':
+					$PRODUCT_ID = $dataItem['value'];
 				break;
 			}
 		}
@@ -46,40 +49,14 @@ if ($request->isPost()){
 		);
 		file_put_contents(__DIR__ ."/text.txt",print_r($arLoadProductArray,true));
 
-		if($PRODUCT_ID = $el->Add($arLoadProductArray)){ 
-
-			//Список сотрудников
-			$arSelect = Array("ID", "NAME","PROPERTY_POST","DETAIL_PAGE_URL");
-			$arFilter = Array("IBLOCK_ID"=>4,"ACTIVE"=>"Y");
-			$res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
-			while($ob = $res->GetNextElement())
-			{
-				$arFields = $ob->GetFields();
-				$WorkersList[$arFields["ID"]]=$arFields ;
-			} 
-
-
-			$arSelect = Array("ID", "NAME");
-			$arFilter = Array("IBLOCK_ID"=>5,"ACTIVE"=>"Y");
-			$res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
-			$quest=array();
-			while($ob = $res->GetNextElement())
-			{
-			 	$arFields = $ob->GetFields();
-			 	$postList[$arFields["ID"]]=$arFields["NAME"];
-			} 
-
-			$str="";
-			foreach($WorkersList as $index=>$arItem){
-				$str .="<tr><th scope='row'>".($index);
-					$str .="</th><td>".$arItem['NAME'].'</td>
-					<td>'.$postList[$arItem["PROPERTY_POST_VALUE"]].'</td>
-					<td><a href="'.$arItem['DETAIL_PAGE_URL'].'">редактировать</a>/<a onClick="deleteUsers('.$arItem["ID"].')" href="#">удалить<a/></td>
-				</tr>';
-			}
-				echo($str);
-
-		}
+		if($PRODUCT_ID){
+			$res = $el->Update($PRODUCT_ID, $arLoadProductArray);
+			$str = "<div>
+						<h3>Изменения внесены</h3>
+						<a href='/' class='btn btn-btn btn-success'  >Вернутся назад</a>
+					</div>";
+			echo($str);
+		}	
 		else{
 			echo("error");
 		}

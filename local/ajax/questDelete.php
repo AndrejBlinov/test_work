@@ -33,7 +33,7 @@ if ($request->isPost()){
 		 $WorkersList[$arFields["ID"]]=$arFields["NAME"] ;
 		} 
 
-		$arSelect = Array("ID", "NAME","PROPERTY_STATUS","PROPERTY_WORKER");
+		$arSelect = Array("ID", "NAME","PROPERTY_STATUS","PROPERTY_WORKER","DETAIL_PAGE_URL");
 		$arFilter = Array("IBLOCK_ID"=>3,"ACTIVE"=>"Y");
 		$res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
 		$quest=array();
@@ -45,16 +45,10 @@ if ($request->isPost()){
 		$str="";
 		foreach($quest as $index=>$arItem){
 			$str .="<tr><th scope='row'>".($index+1);
-				$str .="</th><td>".$arItem["NAME"].'</td><td>';
-				foreach($arItem["PROPERTY_WORKER_VALUE"] as $index=>$worker)
-					{
-						$WorkerName = $WorkersList[$worker];
-						$index==0 ? $strItem = $WorkerName : $strItem = " ,".$WorkerName ;
-						$str .=$strItem;
-					}
-				$str .='</td>
+				$str .="</th><td>".$arItem["NAME"].'</td>';
+				$str .='<td>'.$WorkersList[$arItem["PROPERTY_WORKER_VALUE"]].'</td>
 				<td>'.$statuslist[$arItem["PROPERTY_STATUS_VALUE"]].'</td>
-				<td><a href="#">редактировать</a>/<a onclick="deletequest('.$arItem["ID"].')" href="#">удалить</a><a></a></td>
+				<td><a href="'.$arItem['DETAIL_PAGE_URL'].'">редактировать</a>/<a onclick="deletequest('.$arItem["ID"].')" href="#">удалить</a><a></a></td>
 			</tr>';
 		}echo($str);
 	}

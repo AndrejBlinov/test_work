@@ -7,14 +7,14 @@ Array
         (
             [POST] => Array
                 (
-                    [VALUE] => 10
+                    [VALUE] => 12
                 )
 
         )
 
-    [NAME] => Студент
+    [NAME] => Вася пупкин
     [ACTIVE] => Y
     [PREVIEW_TEXT] => 
     [DETAIL_TEXT] => 
-    [CODE] => -21-03-06-13
+    [CODE] => vasya-pupkin2021-03-08-08
 )

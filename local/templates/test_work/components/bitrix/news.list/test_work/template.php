@@ -14,7 +14,9 @@ $this->setFrameMode(true);
 
 $themeClass = isset($arParams['TEMPLATE_THEME']) ? ' bx-'.$arParams['TEMPLATE_THEME'] : '';
 ?>
-<?//print_r($arResult['WORKERS']);?>
+<?
+global $GLOBALS ;
+//print_r($arResult["ITEMS"][0]);?>
 <div>
 	<div>
 		<table class="table">
@@ -27,21 +29,16 @@ $themeClass = isset($arParams['TEMPLATE_THEME']) ? ' bx-'.$arParams['TEMPLATE_TH
 				<th>Действия</th>
 			</tr>
 		  </thead>
-		  <tbody>
+		  <tbody id="questList">
 			<?foreach($arResult["ITEMS"] as $index=>$arItem){?>
 			<tr>
 				<th scope="row"><?=$index+1?></th>
 				<td><?=$arItem["NAME"]?></td>
 				<td>
-					<?foreach($arItem["PROPERTIES"]["WORKER"]["VALUE"] as $index=>$worker)
-					{
-						$WorkerName = $arResult['WORKERS'][$worker];
-						$index==0 ? $str = $WorkerName : $str = " ,".$WorkerName ;
-						echo($str);
-					}?>
+					<?=$GLOBALS['WORKER_LIST'][$arItem["PROPERTIES"]["WORKER"]["VALUE"]];?>
 				</td>
-				<td><?=$arResult['STATUS_LIST'][$arItem["PROPERTIES"]["STATUS"]["VALUE"]]?></td>
-				<td><a href="#">редактировать/ удалить</a></td>
+				<td><?=$GLOBALS["STATUS_LIST"][$arItem["PROPERTIES"]["STATUS"]["VALUE"]]?></td>
+				<td><a href="<?=$arItem['DETAIL_PAGE_URL']?>">редактировать</a>/<a onClick="deletequest(<?=$arItem["ID"]?>)" href="#">удалить<a/></td>
 			</tr>
 			  <?}?>
 		  </tbody>

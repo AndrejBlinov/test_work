@@ -13,6 +13,7 @@
 $this->setFrameMode(true);
 
 $themeClass = isset($arParams['TEMPLATE_THEME']) ? ' bx-'.$arParams['TEMPLATE_THEME'] : '';
+global $GLOBALS ;
 ?>
 <div>
 	<div>
@@ -25,13 +26,13 @@ $themeClass = isset($arParams['TEMPLATE_THEME']) ? ' bx-'.$arParams['TEMPLATE_TH
 				<th>Действия</th>
 			</tr>
 		  </thead>
-		  <tbody>
+		  <tbody id = "workerList">
 			<?foreach($arResult["ITEMS"] as $index=>$arItem){?>
 			<tr>
 				<th scope="row"><?=$index+1?></th>
 				<td><?=$arItem["NAME"]?></td>
-				<td><?=$arResult['POST_LIST'][$arItem["PROPERTIES"]["POST"]["VALUE"]]?></td>
-				<td><a href="#">редактировать/ удалить</a></td>
+				<td><?=$GLOBALS['POST_LIST'][$arItem["PROPERTIES"]["POST"]["VALUE"]]?></td>
+				<td><a href="<?=$arItem['DETAIL_PAGE_URL']?>">редактировать</a>/<a onClick="deleteUsers(<?=$arItem["ID"]?>)" href="#">удалить<a/></td>
 			</tr>
 			  <?}?>
 		  </tbody>

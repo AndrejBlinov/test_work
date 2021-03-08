@@ -16,7 +16,7 @@ if ($request->isPost()){
 		CIBlockElement::Delete($ELEMENT_ID);
 
 		//Список сотрудников
-		$arSelect = Array("ID", "NAME","PROPERTY_POST");
+		$arSelect = Array("ID", "NAME","PROPERTY_POST","DETAIL_PAGE_URL");
 		$arFilter = Array("IBLOCK_ID"=>4,"ACTIVE"=>"Y");
 		$res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
 		while($ob = $res->GetNextElement())
@@ -41,7 +41,7 @@ if ($request->isPost()){
 			$str .="<tr><th scope='row'>".($index+1);
 				$str .="</th><td>".$arItem['NAME'].'</td>
 				<td>'.$postList[$arItem["PROPERTY_POST_VALUE"]].'</td>
-				<td><a href="#">редактировать</a>/<a onClick="deleteUsers('.$arItem["ID"].')" href="#">удалить<a/></td>
+				<td><a href="'.$arItem['DETAIL_PAGE_URL'].'">редактировать</a>/<a onClick="deleteUsers('.$arItem["ID"].')" href="#">удалить<a/></td>
 			</tr>';
 		}
 		echo($str);
